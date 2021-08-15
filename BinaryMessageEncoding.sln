@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryMessageEncoding", "BinaryMessageEncoding\BinaryMessageEncoding.csproj", "{B61C7550-11F1-41BC-8639-5C00C5BEC70D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryMessageEncoding.Test", "BinaryMessageEncoding.Test\BinaryMessageEncoding.Test.csproj", "{F5447A25-E163-4FEF-B6C7-2BC556F21968}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B61C7550-11F1-41BC-8639-5C00C5BEC70D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61C7550-11F1-41BC-8639-5C00C5BEC70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61C7550-11F1-41BC-8639-5C00C5BEC70D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61C7550-11F1-41BC-8639-5C00C5BEC70D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5447A25-E163-4FEF-B6C7-2BC556F21968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5447A25-E163-4FEF-B6C7-2BC556F21968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5447A25-E163-4FEF-B6C7-2BC556F21968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5447A25-E163-4FEF-B6C7-2BC556F21968}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CDB9E45E-88FC-4045-9A46-668DF3871AC8}
+	EndGlobalSection
+EndGlobal

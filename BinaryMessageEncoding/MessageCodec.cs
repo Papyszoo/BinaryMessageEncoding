@@ -11,7 +11,7 @@ namespace BinaryMessageEncoding
         public Message Decode(byte[] data)
         {
             Message message = new Message();
-            string dataString = Encoding.ASCII.GetString(data);
+            string dataString = Encoding.Unicode.GetString(data);
             var lines = dataString.TrimEnd().Split('\n');
 
             message.headers = getHeadersFromData(lines);
@@ -57,7 +57,7 @@ namespace BinaryMessageEncoding
             {
                 throw new NoPayloadWasSentException("No Payload Was Sent");
             }
-            return Encoding.ASCII.GetBytes(payload[1]);
+            return Encoding.Unicode.GetBytes(payload[1]);
 
         }
         #endregion
@@ -72,7 +72,7 @@ namespace BinaryMessageEncoding
             }
             //Append payload
             sb.Append("Payload=");
-            byte[] bytes = Encoding.ASCII.GetBytes(sb.ToString());
+            byte[] bytes = Encoding.Unicode.GetBytes(sb.ToString());
             return bytes.Concat(message.payload).ToArray();
         }
     }

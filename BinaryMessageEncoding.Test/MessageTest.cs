@@ -14,9 +14,9 @@ namespace BinaryMessageEncoding.Test
         {
             //Arrange
             string messageString = "Test=test\nTest2=test2\nTest3=test3\nPayload=payloadtest";
-            byte[] bytes = Encoding.ASCII.GetBytes(messageString);
+            byte[] bytes = Encoding.Unicode.GetBytes(messageString);
 
-            byte[] payload = Encoding.ASCII.GetBytes("payloadtest");
+            byte[] payload = Encoding.Unicode.GetBytes("payloadtest");
             IMessageCodec codec = new MessageCodec();
 
             //Act
@@ -34,7 +34,7 @@ namespace BinaryMessageEncoding.Test
         public void Encode_ShouldBuildMessage()
         {
             //Arrange
-            byte[] payload = Encoding.ASCII.GetBytes("payloadtest");
+            byte[] payload = Encoding.Unicode.GetBytes("payloadtest");
             Message message = new Message()
             {
                 headers = new Dictionary<string, string>()
@@ -48,7 +48,7 @@ namespace BinaryMessageEncoding.Test
             IMessageCodec codec = new MessageCodec();
             //Act
             byte[] data = codec.Encode(message);
-            string dataString = Encoding.ASCII.GetString(data);
+            string dataString = Encoding.Unicode.GetString(data);
 
             //Assert
             Assert.Contains("Test=test", dataString);
@@ -62,9 +62,9 @@ namespace BinaryMessageEncoding.Test
         {
             //Arrange
             string messageString = new string('x', 5000) + "Test=test\nTest2=test2\nTest3=test3\nPayload=payloadtest";
-            byte[] bytes = Encoding.ASCII.GetBytes(messageString);
+            byte[] bytes = Encoding.Unicode.GetBytes(messageString);
 
-            byte[] payload = Encoding.ASCII.GetBytes("payloadtest");
+            byte[] payload = Encoding.Unicode.GetBytes("payloadtest");
             IMessageCodec codec = new MessageCodec();
 
             //Assert
@@ -76,9 +76,9 @@ namespace BinaryMessageEncoding.Test
         {
             //Arrange
             string messageString = string.Concat(Enumerable.Repeat("x=y\n", 2)) + "Payload=payloadtest";
-            byte[] bytes = Encoding.ASCII.GetBytes(messageString);
+            byte[] bytes = Encoding.Unicode.GetBytes(messageString);
 
-            byte[] payload = Encoding.ASCII.GetBytes("payloadtest");
+            byte[] payload = Encoding.Unicode.GetBytes("payloadtest");
             IMessageCodec codec = new MessageCodec();
 
             //Assert
@@ -95,7 +95,7 @@ namespace BinaryMessageEncoding.Test
                 messageString += $"Test{i}=test{i}\n";
             }
             messageString += "Payload=payloadtest";
-            byte[] bytes = Encoding.ASCII.GetBytes(messageString);
+            byte[] bytes = Encoding.Unicode.GetBytes(messageString);
             IMessageCodec codec = new MessageCodec();
 
             //Assert
@@ -110,7 +110,7 @@ namespace BinaryMessageEncoding.Test
             //Arrange
             string messageString = header;
             messageString += "Payload=payloadtest";
-            byte[] bytes = Encoding.ASCII.GetBytes(messageString);
+            byte[] bytes = Encoding.Unicode.GetBytes(messageString);
             IMessageCodec codec = new MessageCodec();
 
             //Assert
@@ -127,7 +127,7 @@ namespace BinaryMessageEncoding.Test
             //Arrange
             string messageString = "Test=test\nTest2=test2\nTest3=test3\n";
             messageString += payload;
-            byte[] bytes = Encoding.ASCII.GetBytes(messageString);
+            byte[] bytes = Encoding.Unicode.GetBytes(messageString);
             IMessageCodec codec = new MessageCodec();
 
             //Assert
@@ -139,11 +139,28 @@ namespace BinaryMessageEncoding.Test
         {
             //Arrange
             string messageString = "Test=test\nTest2=test2\nTest3=test3\n";
-            byte[] bytes = Encoding.ASCII.GetBytes(messageString);
+            byte[] bytes = Encoding.Unicode.GetBytes(messageString);
             IMessageCodec codec = new MessageCodec();
 
             //Assert
             Assert.Throws<NoPayloadWasSentException>(() => codec.Decode(bytes));
+        }
+        [Fact]
+        public void Decode_NonUnicodePayload()
+        {
+            var message = new Message()
+            {
+                headers = new Dictionary<string, string>(),
+                payload = new byte[] { 0xEF, 0xBB, 0xBF, 215 }
+            };
+
+            var codec = new MessageCodec();
+
+            var encoded = codec.Encode(message);
+
+            var decoded = codec.Decode(encoded);
+
+            Assert.Equal(new byte[] { 0xEF, 0xBB, 0xBF, 215 }, decoded.payload);
         }
     }
 }
